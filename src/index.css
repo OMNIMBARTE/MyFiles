@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg-base: #0a0b14;
+    --color-bg-surface: #121324;
+    --color-bg-card: rgba(26, 28, 52, 0.75);
+    --color-bg-hover: rgba(48, 45, 88, 0.5);
+    --color-bg-active: rgba(192, 132, 252, 0.2);
+    --color-border: rgba(192, 132, 252, 0.18);
+    --color-border-highlight: rgba(192, 132, 252, 0.6);
+    --color-text-primary: #faf5ff;
+    --color-text-secondary: #d8b4fe;
+    --color-text-muted: #9333ea;
+    --color-accent: #c084fc;
+    --color-accent-subtle: rgba(192, 132, 252, 0.15);
+    --color-accent-glow: rgba(192, 132, 252, 0.5);
+    --color-glow: rgba(192, 132, 252, 0.35);
+  }
+
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+  }
+
+  /* Ensure text inside inputs is always visible and selectable,
+     overriding the global user-select:none on body. */
+  input,
+  textarea,
+  [contenteditable='true'] {
+    user-select: text;
+    -webkit-user-select: text;
+    -webkit-touch-callout: text;
+    caret-color: var(--color-accent);
+    color: var(--color-text-primary);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+  }
+
+  /* Force dark input backgrounds so light/white text stays readable.
+     Chromium applies a near-white background to autofilled inputs, which
+     makes white text invisible — neutralize that here. */
+  input,
+  textarea {
+    background-color: var(--color-bg-surface) !important;
+    box-shadow: 0 0 0 1000px var(--color-bg-surface) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--color-bg-surface) inset !important;
+    -webkit-text-fill-color: var(--color-text-primary) !important;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--color-bg-surface) inset !important;
+    -webkit-text-fill-color: var(--color-text-primary) !important;
+    caret-color: var(--color-accent) !important;
+    transition: background-color 9999s ease-out;
+  }
+
+  /* Visible highlight so typed/selected text never blends into the background */
+  ::selection {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+  input::selection,
+  textarea::selection {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth glass filter */
+.glass-panel {
+  background: var(--color-bg-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+/* Animated ambient lighting orbs drift */
+@keyframes orb-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, 30px) scale(1.1); }
+  66% { transform: translate(-20px, 60px) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes orb-drift-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, -40px) scale(1.15); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes orb-drift-3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(50px, -50px) scale(1.1); }
+  100% { transform: translate(0, 0) scale(0.9); }
+}
+
+.animate-orb-drift {
+  animation: orb-drift 20s ease-in-out infinite;
+}
+
+.animate-orb-drift-2 {
+  animation: orb-drift-2 28s ease-in-out infinite;
+}
+
+.animate-orb-drift-3 {
+  animation: orb-drift-3 24s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orb-drift,
+  .animate-orb-drift-2,
+  .animate-orb-drift-3 {
+    animation: none;
+  }
+}
